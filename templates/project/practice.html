@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+</head>
+<style>
+
+    #header {
+        text-align: center;
+    }
+
+    #nav {
+        text-align: right;
+        width: 90%;
+    }
+
+
+    .modal_overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+    }
+
+    .modal_window {
+        background-color: white;
+        backdrop-filter: blur(13.5px);
+        -webkit-backdrop-filter: blur(13.5px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        width: 800px;
+        height: 600px;
+        position: relative;
+        padding: 10px;
+    }
+
+    .modal_title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .modal_title_side {
+        flex: 0 0 40px;
+        text-align: center;
+    }
+
+    .modal_image_upload {
+        outline: 2px dashed black;
+        outline-offset: -10px;
+        text-align: center;
+        transition: all .15s ease-in-out;
+        width: 780px;
+        height: 548px;
+    }
+
+    .modal_image_upload_content {
+        outline: 2px dashed black;
+        outline-offset: -10px;
+        text-align: center;
+        transition: all .15s ease-in-out;
+        width: 500px;
+        display: flex;
+    }
+
+    .modal_image_content {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .modal_content_write {
+        display: flex;
+        flex-direction: column;
+        border-left: 1px solid rgba(0, 0, 0, 0.18);;
+    }
+
+    .form-control {
+        resize: none;
+        width: 294px;
+        border: none;
+    }
+
+
+</style>
+<body>
+
+<div id="header">
+    <h1>Drunk Driving Management</h1>
+</div>
+
+
+<div id="nav">
+    <button id="modal_add_user" type="submit">Add</button>
+</div>
+
+
+<div id="Main">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">시동여부</th>
+            <th scope="col">기계번호</th>
+            <th scope="col">차량소유주</th>
+            <th scope="col">차량번호</th>
+            <th scope="col">전화번호</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in user_list %}
+            <tr>
+                <th scope="row">O</th>
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.car_num }}</td>
+                <td>{{ user.phone_num }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+        <div id="first_modal" class="modal_overlay">
+            <div class="modal_window">
+                <div class="modal_title">
+                    <div class="modal_title_side"></div>
+                    <div>새로운 사용자 추가</div>
+                    <div class="modal_title_side">
+                        <span class="close_modal">&times;</span>
+                    </div>
+                </div>
+                <div class="modal_image_content"></div>
+                <div class="modal_image_upload"></div>
+                <div style="text-align: center; padding:10px">사진을 여기에 끌어다 놓으세요.</div>
+
+            </div>
+        </div>
+
+        <div id="modal_add_user_content" class="modal modal_overlay_contnet">
+            <div class="modal_window">
+                <div class="modal_title">
+                    <div class="modal_title_side"></div>
+                    <div style="margin: 5px">새로운 사용자 추가</div>
+                    <div class="modal_title_side">
+                        <span class="close_modal">&times;</span>
+                    </div>
+                    <div id="input_image" class="modal_image_upload_content">
+
+                    </div>
+                    <div class="modal_content_write">
+                        <div style="height: 400px">
+                            <span>차량소유주</span>#}
+                            <textarea id="input_name" class="form-control" cols="1" rows="1"
+                                      style="text-align: center"></textarea>
+                            <span>차량번호</span>
+                            <textarea id="input_carnum" class="form-control" cols="1" rows="1"
+                                      style="text-align: center"></textarea>
+                            <span>전화번호</span>
+                            <textarea id="input_phonenum" class="form-control" cols="1" rows="1"></textarea>
+                            <span>주소</span>
+                            <textarea id="input_address" class="form-control" cols="1" rows="1"></textarea>
+                        </div>
+                        <div style="width: 100%; text-align: center">
+                            <button id="button_write_user" type="button" class="btn btn-primary" style="width:268px">
+                                추가하기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#<div id="myModal" class="modal">#}
+        {#  <div class="modal-content">#}
+        {#    <span class="close">&times;</span>#}
+        {#        <div class="modal_title">#}
+        {#            <div class="modal_tilte_side"></div>#}
+        {#            <div> 사용자 추가</div>#}
+        {#            <div class="modal_title_side">#}
+        {##}
+        {#            </div>#}
+        {#        </div>#}
+        {#      <div>#}
+        {#          <span>차량소유주</span>#}
+        {#          <textarea id="input_name" class="form-control" cols="1" rows="1" style="text-align: center"></textarea>#}
+        {#           <span>차량번호</span>#}
+        {#          <textarea id="input_carnum" class="form-control" cols="1" rows="1" style="text-align: center"></textarea>#}
+        {#           <span>전화번호</span>#}
+        {#          <textarea id="input_phonenum" class="form-control" cols="1" rows="1" style="text-align: center"></textarea>#}
+        {#      </div>#}
+        {#      <button id="user_create_button" style="text-align: right">추가</button>#}
+        {#  </div>#}
+        {#</div>#}
+
+        <script>
+            $(document).ready(function () {
+                $("#modal_add_user").click(function () {
+                    $(".modal_overlay").css("display", "flex"); // 모달창 보이게 함
+                    {#modal.style.top = window.pageYOffset + "px"#}
+                    document.body.style.overflowY = "hidden"; // 스크롤 없애기
+                });
+
+                $(".close_modal").click(function () {
+                    $(".modal_overlay").css("display", "none"); // 모달창 숨김
+                    $('#modal_add_user_content').css("display", 'none');
+                    document.body.style.overflowY = "visible" // 스크롤 생성
+                });
+
+                $('.modal_image_upload')
+                    .on("dragover", dragOver)
+                    .on("dragleave", dragOver)
+                    .on("drop", uploadFiles);
+
+                function dragOver(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+
+                    if (e.type == "dragover") {
+                        $(e.target).css({
+                            "background-color": "black",
+                            "outline-offset": "-20px"
+                        });
+                    } else {
+                        $(e.target).css({
+                            "background-color": "white",
+                            "outline-offset": "-10px;"
+                        });
+                    }
+                }
+
+                function uploadFiles(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    console.log(e.dataTransfer)
+                    console.log(e.originalEvent.dataTransfer)
+
+                    e.dataTransfer = e.originalEvent.dataTransfer;
+
+                    files = e.dataTransfer.files;
+
+                    if (files.length > 1) {
+                        alert('하나만 올리십시오');
+                        return
+                    }
+
+                    if (files[0].type.match(/image.*/)) {
+                        $('.modal_image_upload ').css({
+                            "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
+                            "outline": "none",
+                            "background-size": "100% 100%",
+                        });
+                        $('#modal_add_user_content').css({
+                            "display": 'flex'
+                        })
+
+
+                    } else {
+                        alert('이미지가 아닙니다.');
+                        return;
+                    }
+                }
+
+
+            });
+
+
+            {#const addButton = document.getElementById("user_create_button");#}
+            {##}
+            {#addButton.addEventListener("click", function (){#}
+            {#    alert("추가");#}
+            {##}
+            {#    // let file = files[0];#}
+            {#    let name = $('#input_name').val();#}
+            {#    let car_num = $('#input_carnum').val();#}
+            {#    let phone_num = $('#input_phonenum').val();#}
+            {##}
+            {#    let fd = new FormData();#}
+            {##}
+            {#    //fd.append('file', file);#}
+            {#    fd.append('name', name);#}
+            {#    fd.append('car_num', car_num);#}
+            {#    fd.append('phone_num', phone_num);#}
+            {##}
+            {##}
+            {#    $.ajax({#}
+            {#        url: "user/upload",#}
+            {#        data: fd,#}
+            {#        method: "POST",#}
+            {#        processData: false,#}
+            {#        contentType: false,#}
+            {#        success: function (data){#}
+            {#            console.log("성공");#}
+            {#        },#}
+            {#        error: function (request, status, error){#}
+            {#            console.log("에러");#}
+            {#        },#}
+            {#        complete: function() {#}
+            {#            console.log("완료");#}
+            {#            location.replace("")#}
+            {#        }#}
+            {#        });#}
+
+
+        </script>
+
+</body>
+</html>

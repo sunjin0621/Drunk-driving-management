@@ -15,8 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from user.views import AddUser
+from .settings import MEDIA_URL, MEDIA_ROOT
 from .views import Main
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('', Main.as_view()),
+    path('user/upload', AddUser.as_view())
 ]
+urlpatterns += static(MEDIA_URL, document_root=MEDIA_URL)

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table width="100%" style="text-align:center; border:none">
+    <tr>
+        <td colspan="2" style="background-color:lightgrey"><h2>Drunk driving Management</h2></td>
+    </tr>
+    <tr>
+        <td style="background-color:#339999; color:white; width:70%"><h2>Nav 영역</h2></td>
+
+        <td style="height:200px; text-align:left"><p>
+            {%  for user in user_list %}
+                <p>{{ user.name }}</p>
+                <p>{{ user.phone_num }}</p>
+                <p>{{ user.car_num }}</p>
+            {% endfor %}
+        </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="background-color:#FFCC00"><h2>Footer 영역</h2></td>
+
+    </tr>
+
+</table>
+</body>
+</html>
