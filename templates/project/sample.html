@@ -177,7 +177,7 @@
             <div class="modal_title_side"></div>
             <div style="margin: 5px">새로운 사용자 추가</div>
             <div class="modal_title_side">
-                <span id="close_modal">&times;</span>
+                <span id="close_modal1">&times;</span>
             </div>
         </div>
         <div class="modal_image_content">
@@ -187,7 +187,13 @@
             <div class="modal_content_write">
                 <div style="height: 440px">
                     <div>차량소유주</div>
-                    <textarea id="input_content" class="user_content_textarea"></textarea>
+                    <textarea id="input_name" class="form-control"  rows="1" style="text-align: center"></textarea>
+                     <div>전화번호</div>
+                    <textarea id="input_phone" class="form-control"  rows="1" style="text-align: center"></textarea>
+                     <div>차량번호</div>
+                    <textarea id="input_car" class="form-control"  rows="1" style="text-align: center"></textarea>
+                     <div>주소</div>
+                    <textarea id="input_address" class="form-control"  rows="1" style="text-align: center"></textarea>
                 </div>
                 <div style="width: 100%; text-align: center">
                     <button id="button_write_user" type="button" class="btn btn-primary">추가하기</button>
@@ -197,8 +203,11 @@
     </div>
 </div>
 <script>
+
+    let files;
+
     const modal = document.getElementById("modal_add_user");
-    const modal2 = document.getElementById("modal_add_user_content");
+    const modal1 = document.getElementById("modal_add_user_content");
     const buttonAddUser = document.getElementById("add_user");
     buttonAddUser.addEventListener("click", e => {
         modal.style.top = window.pageYOffset + 'px';
@@ -207,12 +216,19 @@
     });
 
     const buttonCloseModal = document.getElementById("close_modal");
+    const buttonCloseModal1 = document.getElementById("close_modal1")
     buttonCloseModal.addEventListener("click", e => {
         modal.style.display = "none";
+        modal1.style.display = "none";
+        document.body.style.overflowY = "visible";
+    });
+    buttonCloseModal1.addEventListener("click", e => {
+        modal1.style.display = "none";
         document.body.style.overflowY = "visible";
     });
 
     <!-- jquery 부분 -->
+
 
    $('.modal_image_upload')
         .on("dragover", dragOver)
@@ -241,8 +257,9 @@
         e.preventDefault();
 
         e.dataTransfer = e.originalEvent.dataTransfer;
+        files = e.target.files || e.dataTransfer.files;
+        console.log("뭔가 파일을 올렸네?" + files[0].name);
 
-        var files =  e.dataTransfer.files;
         if (files.length > 1) {
             alert('하나만 올려라.');
             return;
@@ -269,7 +286,70 @@
 
     }
 
+    $('#button_write_user').click(function (){
+        alert("공유하기 눌렀다."+ files[0].name);
+
+        let file = files[0];
+        let image = files[0].name;
+        let name =  $('#input_name').val();
+        let phone_num = $('#input_phone').val();
+        let car_num = $('#input_car').val();
+        let address = $('#input_address').val();
+
+        let fd = new FormData();
+
+        fd.append('file', file);
+        fd.append('image', image);
+        fd.append('name', name);
+        fd.append('phone_num', phone_num);
+        fd.append('car_num', car_num);
+        fd.append('address', address);
+
+
+        $.ajax({
+            url:"/content/upload",
+            data: fd,
+            method: "POST",
+            processData: false,
+            contentType: false,
+            success: function (data){
+                console.log("성공");
+            },
+            error: function (request, status, error) {
+                console.log("에러");
+            },
+            complete: function (){
+                console.log("완료");
+                location.reload();
+            }
+        });
+    });
+
+
 </script>
 
 </body>
 </html>
+
+        {% comment %}console.log("뭔가 파일을 올렸네?" + files[0].name);
+
+
+        if(image.length <= 0)
+        {
+            alert("이미지가 비어있습니다.");
+        }
+        else if(name.length <= 0)
+        {
+            alert("차량소유주를 입력하세요");
+        }
+        else if(phone.length <= 0)
+        {
+            alert("전화번호를 입력하세요");
+        }
+        else if(car.length <= 0)
+        {
+            alert("차량번호를 입력하세요");
+        }
+        else{
+            writeUser(fd);
+        }{% endcomment %}

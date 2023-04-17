@@ -7,3 +7,4 @@ class User(models.Model):
     phone_num = models.TextField()
     car_num = models.TextField()
     address = models.TextField(default='')
+
