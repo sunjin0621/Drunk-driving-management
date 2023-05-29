@@ -16,14 +16,20 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import detail
+
+from . import views
 from .settings import MEDIA_URL, MEDIA_ROOT
 from .views import Main, UploadUser
 from django.conf.urls.static import static
 
 
 urlpatterns = [
+    path('', Main.as_view(), name='home'),
     path('', Main.as_view()),
     path('content/upload', UploadUser.as_view()),
+    path('detail/<int:id>/', views.detail, name='detail'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

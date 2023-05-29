@@ -2,6 +2,7 @@ import os
 from uuid import uuid4
 
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -44,6 +45,16 @@ class UploadUser(APIView):
         User.objects.create(image=image, name=name, car_num=car_num, phone_num=phone_num, address=address)
 
         return Response(status=200)
+
+def main(request):
+    userlist = User.objects.all()
+
+    return render(request, 'project/sample.html', {'userlist':userlist})
+
+
+def detail(request, id):
+    user_detail = get_object_or_404(User, pk=id)
+    return render(request, 'project/detail.html', {'user': user_detail})
 
 
 

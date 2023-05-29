@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    {% load static %}
+</head>
+<style>
+    span {
+        padding-right: 5px;
+    }
+
+    #header {
+        text-align: center;
+    }
+
+        .img {
+        position: static;
+        width:  70%;
+        height: 70%;
+        float: left;
+        padding: 10px;
+    }
+
+    .info {
+        position: static;
+        width : 27%;
+        padding: 5px;
+        float: right;
+    }
+
+    .footer {
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+     #header {
+        text-align: center;
+    }
+
+</style>
+<body>
+
+<div id="header">
+    <h1>Drunk Driving Management</h1>
+</div>
+
+<div>
+    <img class="img" src="{% get_media_prefix %}{{ user.image }}">
+</div>
+
+
+<div class="info">
+    <p>이름 : {{ user.name }}</p>
+    <p>전화번호 : {{ user.phone_num }}</p>
+    <p>차량번호 : {{ user.car_num }}</p>
+    <h1><button type="button" onclick="location.href='{% url 'home' %}'">돌아가기</button></h1>
+    {#    <button><a href="{% url 'home' %}" style="bottom: 0;">돌아가기</a></button>#}
+</div>
+
+<div class="footer"><p>도와조</p></div>
+
+</body>
+</html>

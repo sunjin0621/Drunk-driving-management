@@ -7,6 +7,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
@@ -109,15 +110,6 @@
         border-left: 1px solid rgba(0, 0, 0, 0.18);;
     }
 
-    {% comment %}
-    .user_content_textarea {
-        resize: none;
-        width: 294px;
-        border: none;
-    }
-    {% endcomment %}
-
-
 </style>
 <body>
 
@@ -150,11 +142,13 @@
                 <td>{{ user.name }}</td>
                 <td>{{ user.car_num }}</td>
                 <td>{{ user.phone_num }}</td>
+                <td><button type="button" onclick="location.href='{% url 'detail' user.id%}'">상세보기</button></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
+
 
 <div id="modal_add_user" class="modal modal_overlay">
     <div class="modal_window">
@@ -166,7 +160,6 @@
             </div>
         </div>
         <div class="modal_image_upload">
-
         </div>
     </div>
 </div>
@@ -194,6 +187,7 @@
                     <textarea id="input_car" class="form-control"  rows="1" style="text-align: center"></textarea>
                      <div>주소</div>
                     <textarea id="input_address" class="form-control"  rows="1" style="text-align: center"></textarea>
+                    </a>
                 </div>
                 <div style="width: 100%; text-align: center">
                     <button id="button_write_user" type="button" class="btn btn-primary">추가하기</button>
@@ -330,26 +324,3 @@
 
 </body>
 </html>
-
-        {% comment %}console.log("뭔가 파일을 올렸네?" + files[0].name);
-
-
-        if(image.length <= 0)
-        {
-            alert("이미지가 비어있습니다.");
-        }
-        else if(name.length <= 0)
-        {
-            alert("차량소유주를 입력하세요");
-        }
-        else if(phone.length <= 0)
-        {
-            alert("전화번호를 입력하세요");
-        }
-        else if(car.length <= 0)
-        {
-            alert("차량번호를 입력하세요");
-        }
-        else{
-            writeUser(fd);
-        }{% endcomment %}
